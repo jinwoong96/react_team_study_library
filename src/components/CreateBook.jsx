@@ -7,7 +7,7 @@ const CreateBook = () => {
     const [content,setContent]=useState('');
     const [bookImage,setBookImage]=useState('');
     const navigator=useNavigate();
-    const currentUser='ㅁ';
+    const currentUser=JSON.parse(localStorage.getItem("currentUser"));;
 
     useEffect(()=>{
         if(!currentUser){
