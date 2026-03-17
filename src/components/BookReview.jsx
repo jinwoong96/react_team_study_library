@@ -8,4 +8,4 @@ const BookReview = () => {
     );
 };
 
-export default BookInfo;
+export default BookReview;
