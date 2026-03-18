@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import {useAuth} from './AuthContextPro';
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
-import {useAuth} from './AuthContextPro';
-import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
