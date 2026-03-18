@@ -16,8 +16,8 @@ const Login = () => {
         let users=JSON.parse(localStorage.getItem("users")) || [];
         const loginUser=users.find((user)=> user.id === id && user.password === password );
         if(loginUser){
-            setCurrentUser(loginUser);
-            localStorage.setItem("currentUser", JSON.stringify(loginUser))
+            setCurrentUser(loginUser.userName);
+            localStorage.setItem("currentUser", JSON.stringify(loginUser.userName));
             setId("");
             setPassword("");
             navigator('/BookList');
@@ -36,13 +36,7 @@ const Login = () => {
 
                 <button>로그인</button>
             </form>
-            <form onSubmit={onSubmit2}>
-                <h1>로그인</h1>
-                아이디:<input type='text' value={id} onChange={(e)=>setId(e.target.value)}></input>
-                비밀번호:<input type='password' value={password} onChange={(e)=>setPassword(e.target.value)}></input>
 
-                <button>로그인</button>
-            </form>
             
         </div>
     );
