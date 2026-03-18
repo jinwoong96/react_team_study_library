@@ -4,7 +4,7 @@ import { useAuth } from "./AuthContextPro";
 import { useNavigate } from 'react-router-dom';
 
 const Navibar = () => {
-  const { username, logout } = useAuth();
+  const { currentUser, logout } = useAuth();
 
   return (
     <nav>
@@ -14,9 +14,9 @@ const Navibar = () => {
       </div>
 
       <div>
-        {username ? (
+        {currentUser ? (
           <>
-            <span>{username}님</span>
+            <span>{currentUser}님</span>
             <button onClick={logout}>로그아웃</button>
           </>
         ) : (

@@ -4,8 +4,8 @@ const AuthContext=createContext();
 
 const AuthContextPro = ({children}) => {
     
-    const [username, setUsername]=useState(
-        JSON.parse(localStorage.getItem("username")) || null,
+    const [currentUser, setCurrentUser]=useState(
+        JSON.parse(localStorage.getItem("currentUser")) || null,
     );
 
     const login=(name)=>{
@@ -14,12 +14,12 @@ const AuthContextPro = ({children}) => {
     };
 
     const logout=()=>{
-        setUsername(null);
-        localStorage.removeItem("username");
+        setCurrentUser(null);
+        localStorage.removeItem("currentUser");
     }
 
     return (
-        <AuthContext.Provider value={{ username, login, logout}}>
+        <AuthContext.Provider value={{ currentUser, login, logout}}>
             {children}
         </AuthContext.Provider>
             
