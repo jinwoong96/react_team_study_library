@@ -9,8 +9,8 @@ const AuthContextPro = ({children}) => {
     );
 
     const login=(name)=>{
-        setUsername(name);
-        localStorage.setItem("username", JSON.stringify(name));
+        setCurrentUser(name);
+        localStorage.setItem("currentUser", JSON.stringify(name));
     };
 
     const logout=()=>{
