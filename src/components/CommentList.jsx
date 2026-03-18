@@ -1,29 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCurrentTimeString } from '../jss/util';
+import CreateComment from './CreateComment';
 
-const CommentList = () => {
+const CommentList = ({bookId}) => {
     
+    // 테스트용 코드
     // const {bookId=id} = useParams();
-    const bookId = 1773741190497;
+    // const bookId = 1773741190497;
     console.log(getCurrentTimeString());
     
     const [comments, setComments] = useState([]);
     const [likes, setLikes] = useState([]);
     const [currentUser, setCurrentUser] = useState(null);
-    const [commentInput, setCommentInput] = useState('');
+    const [like, setLike] = useState(false);
+
+    const toggleLike = () => {
+        let storedBooks = JSON.parse(localStorage.getItem("books"));
+        if(like){
+            // 좋아요 취소하면 로컬에서 삭제
+            setLikes(()=>likes.filter((name)=>name!==currentUser.username));
+            storedBooks = storedBooks.map((book)=>book.id===bookId?{...book,likes:likes}:book);
+            localStorage.setItem("books", JSON.stringify(storedBooks));
+        }else{
+            // 좋아요 하면 로컬에 추가
+            let newLikes = [...likes, currentUser.username];
+            storedBooks.likes = newLikes;
+            setLikes(newLikes);
+            localStorage.setItem("books", JSON.stringify(storedBooks));
+        }
+        setLike(()=>!like);
+    }
     
-    const addComment = () => {
-        if(!commentInput.trim()){   // 내용 없으면 스킵
-            return;
-        }
-        const newComment = {
-            id:Date.now(),
-            bookId: bookId,
-            username: currentUser.username,
-            content:commentInput,
-            createdDate:getCurrentTimeString(),
-        }
+    const addComment = (newComment) => {
         const storedComments = JSON.parse(localStorage.getItem("comments"));
         storedComments.push(newComment);
         localStorage.setItem("comments", JSON.stringify(storedComments));
@@ -31,13 +40,15 @@ const CommentList = () => {
     }
 
     const deleteComment = (id) => {
-        // 전체 댓글목록 불러옴
-        let storedComments = JSON.parse(localStorage.getItem("comments"));
-        storedComments = storedComments.filter((comment)=>comment.id!==id);
-        // 삭제하고 저장
-        localStorage.setItem("comments", JSON.stringify(storedComments));
-        // 현재 게시글 댓글 목록 상태 업데이트
-        setComments(()=>storedComments.filter((comment)=>comment.bookId===bookId));
+        if(confirm("댓글을 삭제하시겠습니까?")){
+            // 전체 댓글목록 불러옴
+            let storedComments = JSON.parse(localStorage.getItem("comments"));
+            storedComments = storedComments.filter((comment)=>comment.id!==id);
+            // 삭제하고 저장
+            localStorage.setItem("comments", JSON.stringify(storedComments));
+            // 현재 게시글 댓글 목록 상태 업데이트
+            setComments(()=>storedComments.filter((comment)=>comment.bookId===bookId));
+        }
     }
 
     useEffect(()=>{
@@ -53,48 +64,38 @@ const CommentList = () => {
     },[]);
 
     useEffect(()=>{
-        
-    }, [comments]);
-
-    // const testComments = [{"id":1773741246867,"bookId":1773741190497,"username":"사용자1","content":"너무 재밌어요", "createdTime":'2026.03.16 14:13'},
-    //     {"id":1773741246868,"bookId":1773741190497,"username":"사용자2","content":"퍼가요~", "createdTime":'2026.03.16 14:15'},
-    //     {"id":1773741246869,"bookId":1773741190497,"username":"사용자1","content":"흥미진진해요", "createdTime":'2026.03.16 15:13'},
-    //     {"id":1773741246870,"bookId":1773741190497,"username":"사용자3","content":"너무 길어요", "createdTime":'2026.03.16 16:13'},
-    //     {"id":1773741246871,"bookId":1773741190498,"username":"사용자3","content":"귀찮아요", "createdTime":'2026.03.16 18:13'},
-    //     {"id":1773741246872,"bookId":1773741190498,"username":"사용자3","content":"재미없어요", "createdTime":'2026.03.17 15:13'}];
-    
-    // localStorage.setItem("comments", JSON.stringify(testComments));
-    
-    // const testBooks = [{"id":1773741246867,"userid":1773741190497,"title":"노인과 바다","likes":['사용자1','사용자2']},
-    //     {"id":1773741190497,"userid":1773741190497,"title":"나의 라임 오렌지나무","likes":['사용자1','사용자2','사용자3','사용자4','관리자']},
-    //     {"id":1773741246869,"userid":1773741190497,"title":"지킬박사와 하이드씨","likes":['사용자1','사용자2']},
-    //     {"id":1773741246870,"userid":1773741190497,"title":"폭풍의 언덕","likes":['사용자1','사용자2']},
-    //     {"id":1773741246871,"userid":1773741190498,"title":"그리스 로마 신화","likes":['사용자1','사용자2']},
-    //     {"id":1773741246872,"userid":1773741190498,"title":"나 혼자 레벨업","likes":['사용자1','사용자2']}];
-    
-    // localStorage.setItem("books", JSON.stringify(testBooks));
+        setLike(()=>likes.some((name)=>currentUser.username===name));
+    }, [currentUser]);
 
     return (
-        <div>
+        <div className="max-w-2xl mx-auto p-4">
             {currentUser?<>
-            <div>좋아요 {likes.length}</div><div>댓글 {comments.length}</div>
+            <button onClick={toggleLike} className='text-sm'><span>{like?<i className="bi bi-heart-fill"></i>:<i className="bi bi-heart"></i>}</span> 좋아요 <span className='font-semibold'>{likes.length}</span></button><button className='ml-5 text-sm'>댓글 <span className='font-semibold'>{comments.length}</span></button>
             <hr/>
-            {/* 댓글 입력칸 */}
-            <div id='comment_input_area'>
-                <div>{currentUser.username}</div>
-                <textarea value={commentInput} placeholder='댓글을 남겨보세요' onChange={(e)=>setCommentInput(e.target.value)}/>
-                <button onClick={addComment}>작성 완료</button>
+            <div className="space-y-2">
+                {comments.map((comment)=>(<div key={comment.id}>
+                    {/* 유저 닉네임, 삭제버튼 */}
+                    <div className="flex justify-between">
+                        <div className="font-semibold text-sm">{comment.username}</div>
+                        <div>{currentUser.username === comment.username?
+                            <button onClick={()=>deleteComment(comment.id)} className='text-sm text-gray-500 hover:text-blue-500'>삭제</button>:<></>}</div>
+                    </div>
+                    {/* 댓글 내용 */}
+                    <div className="text-sm text-gray-700 mt-1">
+                        {comment.content}
+                    </div>
+                    {/* 댓글 쓴 시각 */}
+                    <div className="flex gap-4 text-sm text-gray-500 mt-1">
+                        {comment.createdTime}
+                    </div>
+                    <hr/>
+                    </div>))}
             </div>
-            {comments.map((comment)=>(<div key={comment.id}>
-                <div>{comment.username}</div>
-                {currentUser.username === comment.username?
-                    <button onClick={()=>deleteComment(comment.id)}>삭제</button>:<></>}
-                <div>{comment.content}</div>
-                <div>{comment.createdTime}</div>
-                <hr/>
-                </div>))}</>
+                <CreateComment currentUser={currentUser} addComment={addComment}/>
+                </>
                 :<div></div>
-            }
+                }
+            
         </div>
     );
 };
