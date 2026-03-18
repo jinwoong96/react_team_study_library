@@ -6,7 +6,7 @@ import AdminPage from './AdminPage';
 const Navibar = () => {
   const { currentUser, logout } = useAuth();
 
-  return (
+    return (
     <nav style={{
       display: 'flex',
       padding: '10px'
@@ -37,9 +37,9 @@ const Navibar = () => {
             <Link to="/signup">회원가입</Link>
           </>
         )}
-      </div>
+        </div>
     </nav>
-  );
+    );
 };
 
 export default Navibar;
