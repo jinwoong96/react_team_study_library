@@ -20,6 +20,7 @@ const SignUp = () => {
 
         setUserId("");
         setPassword("");
+        setUserName("");
         setUserName
 
         navigator('/login');
