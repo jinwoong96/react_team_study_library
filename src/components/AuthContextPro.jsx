@@ -1,4 +1,4 @@
-import React,{ createContext, useState, useContext }  from 'react';
+import React,{ createContext, useState, useContext, useEffect }  from 'react';
 
 const AuthContext=createContext();
 
@@ -8,10 +8,11 @@ const AuthContextPro = ({children}) => {
         JSON.parse(localStorage.getItem("currentUser")) || null,
     );
 
-    const login=(name)=>{
-        setCurrentUser(name);
-        localStorage.setItem("currentUser", JSON.stringify(name));
-    };
+    useEffect(()=> {
+        if(currentUser){
+            localStorage.setItem("currentUser", JSON.stringify(currentUser));
+        }
+    }, [currentUser]);
 
     const logout=()=>{
         setCurrentUser(null);
@@ -19,7 +20,7 @@ const AuthContextPro = ({children}) => {
     }
 
     return (
-        <AuthContext.Provider value={{ currentUser, login, logout}}>
+        <AuthContext.Provider value={{ currentUser, setCurrentUser, logout}}>
             {children}
         </AuthContext.Provider>
             
