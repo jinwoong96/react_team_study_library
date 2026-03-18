@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import {useAuth} from './AuthContextPro';
 import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import {useAuth} from './AuthContextPro';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
@@ -29,6 +32,13 @@ const Login = () => {
 
     return (
         <div>
+            <form onSubmit={onSubmit2}>
+                <h1>로그인</h1>
+                아이디:<input type='text' value={id} onChange={(e)=>setId(e.target.value)}></input>
+                비밀번호:<input type='password' value={password} onChange={(e)=>setPassword(e.target.value)}></input>
+
+                <button>로그인</button>
+            </form>
             <form onSubmit={onSubmit2}>
                 <h1>로그인</h1>
                 아이디:<input type='text' value={id} onChange={(e)=>setId(e.target.value)}></input>

@@ -1,14 +1,13 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import BookList from './components/BookList';
-import CommentList from './components/CommentList';
-import CreateBook from './components/CreateBook';
-import EditBookInfo from './components/EditBookInfo';
-import Home from './components/Home';
-import Navibar from './components/navibar';
-import SignUp from './components/SignUp';
+import AuthContextPro from './components/AuthContextPro';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
-
+import SignUp from './components/SignUp';
+import BookList from './components/BookList';
+import Navibar from './components/navibar';
+import EditBookInfo from './components/EditBookInfo';
+import CreateBook from './components/CreateBook';
+import Home from './components/Home';
 
 const App = () => {
   return (
@@ -16,18 +15,22 @@ const App = () => {
       <BrowserRouter>
         <Navibar />
         <Routes>
-          <Route path='/BookList' element={<BookList />}></Route>
-          <Route path='/BookReview' element={<BookReview />}></Route>
-          <Route path='/CommentList' element={<CommentList />}></Route>
-          <Route path='/CreateBook' element={<CreateBook />}></Route>
-          <Route path='/CreateComment' element={<CreateComment />}></Route>
-          <Route path='/EditBookinfo' element={<EditBookInfo />}></Route>
           <Route path='/' element={<Home />}></Route>
-          <Route path ='/login' element={<Login />}></Route>
-          <Route path ='/signup' element={<SignUp />}></Route>
+          <Route path='/booklist' element={<BookList />}></Route>
+          <Route path='/:id' element={<EditBookInfo />}></Route>
+          <Route path='/create' element={<CreateBook />}></Route>
+          <Route path='/login' element={<Login />}></Route>
+          <Route path='/signup' element={<SignUp />}></Route>
+          
+
+
+
+
         </Routes>
       </BrowserRouter>
     </AuthContextPro>
+
+    
   );
 };
 

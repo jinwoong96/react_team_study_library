@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background-color: beige;
+}
+
+/* 링크 스타일 제거 */
+a {
+  text-decoration: none;
+  color: green;
+}
+
+/* 버튼 기본 */
+button {
+  cursor: pointer;
+}
+
+/* 공통 레이아웃 */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
