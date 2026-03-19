@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { getCurrentTimeString } from '../jss/util';
 
 const CreateComment = ({currentUser, addComment}) => {
+
+    const {id} = useParams();
+    const bookId = parseInt(id);
 
     const [commentInput, setCommentInput] = useState('');
 

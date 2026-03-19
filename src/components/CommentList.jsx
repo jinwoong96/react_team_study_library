@@ -34,7 +34,7 @@ const CommentList = () => {
     }
     
     const addComment = (newComment) => {
-        const storedComments = JSON.parse(localStorage.getItem("comments"));
+        const storedComments = JSON.parse(localStorage.getItem("comments")) || [];
         storedComments.push(newComment);
         localStorage.setItem("comments", JSON.stringify(storedComments));
         setComments(()=>storedComments.filter((comment)=>comment.bookId===bookId));
