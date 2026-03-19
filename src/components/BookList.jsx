@@ -25,21 +25,25 @@ const BookList = () => {
 
     return (
         <div>
-            <form className='bg-green-200 shadow-md flex justify-end gap-3 py-2' onSubmit={onSearch}>
-                <input value={search} onKeyDown={(e)=>e.key==='Enter'&&onSearch} onChange={(e)=>setSearch(e.target.value)} className='border border-gray-500 rounded py-1 px-3'></input>
-                <button type='submit' className='bg-black text-white px-3 py-1 rounded'>검색</button>
-                <div className='bg-gray-300 flex px-3 py-1 rounded ml-10 mr-10 border border-gray-400'>
-                    <Link to={`/create`}>책 추가</Link>
+            <form onSubmit={onSearch} className='relative'>
+                <div className='flex justify-center gap-3 py-2'>
+                    <input value={search} onKeyDown={(e)=>e.key==='Enter'&&onSearch} onChange={(e)=>setSearch(e.target.value)} className='placeholder:text-lg border-8 border-cyan-500 w-1/2 h-16 rounded-2xl py-1 px-3' placeholder='제목 / 저자 / 작성자'></input>
+                    <button type='submit' className='bg-cyan-800 text-white text-xl font-semibold w-24 h-16 flex items-center justify-center px-3 rounded-2xl'>검색</button>
+                    <div className='absolute right-0 top-1/2 -translate-y-1/2 h-14 flex items-center justify-center bg-green-500 text-center w-28 rounded-2xl ml-10 mr-10 border border-gray-400 text-xl'>
+                        <Link to={`/create`} className='text-white font-semibold'>책 추가</Link>
+                    </div>
                 </div>
             </form><br />
-            <div className='flex flex-wrap gap-5 ml-10'>
+            <div className='flex flex-wrap gap-28 ml-10'>
                 {books.length > 0 ? (
                     books.map((book)=>(
                         <div key={book.id} className='border border-gray-300 px-10 py-10 rounded justify-center text-center'>
                             <Link to={`/${book.id}`}>
-                                <img src={book.image}
-                                width={120}
-                                height={180}></img><br />
+                                <div className='w-[200px] h-[300px] mx-auto mb-3 border border-gray-300 items-center justify-center flex'>
+                                    <img src={book.image}
+                                    width={200}
+                                    height={300}></img><br />
+                                </div>
                                 {book.title}<br />
                             </Link>
                             <div className='text-sm text-gray-400'>

@@ -62,16 +62,33 @@ const SignUp = () => {
     }
 
     return (
-        <div>
-            <form onSubmit={onSubmit1}>
-                <h1>회원가입</h1>
-                아이디:<input type='text' value={id} onChange={(e)=>setId(e.target.value)} /> {isIdDuplicate && <p> 이미 사용 중인 아이디입니다</p>}
+        <div className="min-h-screen flex items-center justify-center bg-[#f5f5dc]">
+            <form onSubmit={onSubmit1} className="bg-white p-8 rounded-2xl shadow-lg border border-[#D7EFE5]">
+                <h1 className="text-2xl font-bold text-center mb-6 text-[#4E9F84]">회원가입</h1>
+                
+                아이디:<input type='text' value={id} onChange={(e)=>setId(e.target.value)} 
+                className="w-full mt-1 mb-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9FD8C0]"/> 
+                {isIdDuplicate && <p className = "text-red-500 text-sm mb-2"> 이미 사용 중인 아이디입니다</p>}
                 <br></br>
-                닉네임:<input type='text' value={username} onChange={(e)=>setUsername(e.target.value)} /> {isUsernameDuplicate && <p> 이미 사용 중인 닉네임입니다</p>}
+                닉네임:<input type='text' value={username} onChange={(e)=>setUsername(e.target.value)} 
+                className="w-full mt-1 mb-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9FD8C0]"/> 
+                {isUsernameDuplicate && <p className = "text-red-500 text-sm mb-2"> 이미 사용 중인 닉네임입니다</p>}
                 <br></br>
-                비밀번호:<input type='password' value={password} onChange={(e)=>setPassword(e.target.value)}></input>
+                비밀번호:<input type='password' value={password} onChange={(e)=>setPassword(e.target.value)}
+                className="w-full mt-1 mb-4 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9FD8C0]"/>
                 <br></br>
-                <button disabled={ id.includes(" ") || password.includes(" ") || username.includes(" ")}>회원가입</button>
+                <button disabled={ id.includes(" ") || password.includes(" ") || username.includes(" ")}
+                        className={`w-full py-2 rounded-lg font-semibold transition
+                            ${
+                                id.includes(" ") || password.includes(" ") || username.includes(" ")
+                                ? "bg-gray-300 cursor-not-allowed"
+                                : "bg-[#7DBFA6] hover:bg-[#6EAF97] text-white"
+                          }`}
+                            
+                            
+                >
+                    회원가입
+                  </button>
             </form>
             
         </div>
