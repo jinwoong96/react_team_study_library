@@ -3,12 +3,13 @@ import { useParams } from 'react-router-dom';
 import { getCurrentTimeString } from '../jss/util';
 import CreateComment from './CreateComment';
 
-const CommentList = ({bookId}) => {
+const CommentList = () => {
+    const {id} = useParams();
+    const bookId = parseInt(id);
     
     // 테스트용 코드
     // const {bookId=id} = useParams();
     // const bookId = 1773741190497;
-    console.log(getCurrentTimeString());
     
     const [comments, setComments] = useState([]);
     const [likes, setLikes] = useState([]);
@@ -55,7 +56,7 @@ const CommentList = ({bookId}) => {
         // 현재 사용자 정보 가져옴
         setCurrentUser(()=>JSON.parse(localStorage.getItem("currentUser")));
         // 로컬스토리지에 저장된 기존 댓글들 가져옴
-        const storedComments = JSON.parse(localStorage.getItem("comments"));
+        const storedComments = JSON.parse(localStorage.getItem("comments")) || [];
         setComments(()=>storedComments.filter((comment)=>comment.bookId===bookId));
         // 현재 게시글 좋아요 정보
         const storedBooks = JSON.parse(localStorage.getItem("books"));
@@ -95,7 +96,6 @@ const CommentList = ({bookId}) => {
                 </>
                 :<div></div>
                 }
-            
         </div>
     );
 };

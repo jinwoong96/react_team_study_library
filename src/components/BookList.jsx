@@ -41,7 +41,7 @@ const BookList = () => {
                     books.map((book)=>(
                         <div key={book.id} className='border border-gray-300 px-10 py-10 rounded justify-center text-center'>
                             <Link to={`/${book.id}`}>
-                                <img src={book.bookImage}
+                                <img src={book.image}
                                 width={120}
                                 height={180}></img><br />
                                 {book.title}<br />

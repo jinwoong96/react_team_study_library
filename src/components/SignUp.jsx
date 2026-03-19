@@ -11,14 +11,14 @@ const SignUp = () => {
     const onSubmit1=(e)=>{
         e.preventDefault();
 
-        const user ={id, password,userName};
+        const user ={id, password,username:userName};
 
         let users=JSON.parse(localStorage.getItem("users")) || [];
-        user.push(user);
+        users.push(user);
 
         localStorage.setItem("users",JSON.stringify(users));
 
-        setUserId("");
+        setId("");
         setPassword("");
 
         navigator('/login');

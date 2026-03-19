@@ -22,6 +22,11 @@ const BookInfo = () => {
         }
     }, [id, navigate]);
 
+    useEffect(()=>{
+        const storedUser = JSON.parse(localStorage.getItem("currentUser") || null);
+        setCurrentUser(storedUser);
+    },[]);
+
     const handleDelete = () => {
         if (window.confirm('정말로 이 책을 삭제하시겠습니까?')) {
             const storedBooks = JSON.parse(localStorage.getItem('books')) || [];
@@ -35,7 +40,7 @@ const BookInfo = () => {
     if (!book) return <div className="p-10 text-center">로딩 중...</div>;
 
     // <로그인 시는 임시 주석>
-    // const isAuthor = currentUser && String(currentUser.id) === String(book.userid);
+    const isAuthor = currentUser && String(currentUser.id) === String(book.userid);
 
     return (
         <div className="max-w-4xl mx-auto p-6">
@@ -52,7 +57,7 @@ const BookInfo = () => {
                     <div>
                         <h1 className="text-3xl font-bold mb-2">{book.title}</h1>
                         <p className="text-gray-600 mb-6 text-lg">저자: {book.author}</p>
-                        <p className="text-gray-600 mb-6 text-lg">작성자 : {book.nickname}</p>
+                        <p className="text-gray-600 mb-6 text-lg">작성자 : {book.username}</p>
                         <div className="bg-gray-50 p-4 rounded-md min-h-[150px]">
                             <p className="text-gray-800 whitespace-pre-wrap">{book.content}</p>
                         </div>
@@ -60,7 +65,7 @@ const BookInfo = () => {
 
                     <div className="flex gap-2 mt-6 justify-end">
                            {/* <로그인 시는 임시 주석> */}
-                        {/* {isAuthor && ( */}
+                        {isAuthor && (
                             <>
                                 <button 
                                     onClick={() => navigate(`/EditBookInfo/${book.id}`)}
@@ -75,7 +80,7 @@ const BookInfo = () => {
                                     삭제하기
                                 </button>
                             </>
-                        {/* )} */}
+                        )}
                         <button 
                             onClick={() => navigate('/')}
                             className="bg-gray-500 text-white px-5 py-2 rounded hover:bg-gray-600 transition"
@@ -86,7 +91,7 @@ const BookInfo = () => {
                 </div>
             </div>
             <div>
-                <CommentList bookId={id} />
+                <CommentList />
             </div>
 
         </div>

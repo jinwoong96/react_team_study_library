@@ -34,10 +34,12 @@ const CreateBook = () => {
         const newBook={
             id:Date.now(),
             title,
-            bookImage,
+            image:bookImage,
+            username:currentUser.username,
             author,
             content,
             writerId:currentUser.userId,
+            likes:[],
         }
         books.push(newBook);
         localStorage.setItem("books", JSON.stringify(books));
