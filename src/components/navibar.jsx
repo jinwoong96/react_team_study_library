@@ -1,11 +1,18 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from "./AuthContextPro";
 import AdminPage from './AdminPage';
 
 const Navibar = () => {
   const { currentUser, logout } = useAuth();
+  const navigator = useNavigate();
 
+  useEffect(()=>{
+    if(!currentUser){
+      navigator('/login');
+    }
+  },[currentUser]);
+  
   return (
     <nav style={{
       display: 'flex',
@@ -18,10 +25,11 @@ const Navibar = () => {
       }}>
         <Link to="/">홈</Link>
 
-        
         {currentUser && currentUser.username === 'admin' && (
-        <AdminPage />
+          <Link to="/adminPage" >관리자 페이지</Link>
         )}
+
+        
       </div>
 
       <div style={{
@@ -31,7 +39,7 @@ const Navibar = () => {
       }}>
         {currentUser ? (
           <>
-            <span>{currentUser}님</span>
+            <span>{currentUser.username}님</span>
             <button onClick={logout}>로그아웃</button>
           </>
         ) : (
