@@ -18,7 +18,10 @@ const Navibar = () => {
       }}>
         <Link to="/">홈</Link>
 
+        
+        {currentUser && currentUser.username === 'admin' && (
         <AdminPage />
+        )}
       </div>
 
       <div style={{

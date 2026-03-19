@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from './AuthContextPro';
 
 const AdminPage = () => {
     
-    const {currentUser, users}=useAuth();
+    const [localUsers, setLocalUsers]=useState([]);
+    const {currentUser}=useAuth();
+
+    useEffect(()=>{
+        const storedUsers=JSON.parse(localStorage.getItem("users")) || [];
+        setLocalUsers(storedUsers);
+    }, []);
 
     if(!currentUser || currentUser.username !== 'admin'){
         return null;
