@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import {useAuth} from './AuthContextPro';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
 
 const Login = () => {
 
     const [id, setId] = useState('');
     const [password,setPassword]=useState('');
-
+    const [username, setUsername] = useState('')
     const navigator=useNavigate();
     const {setCurrentUser} = useAuth();
     
@@ -14,16 +14,16 @@ const Login = () => {
         e.preventDefault();
 
         let users=JSON.parse(localStorage.getItem("users")) || [];
-        const loginUser=users.find((user)=> user.id === id && user.password === password );
+        const loginUser=users.find((user)=> user.id === id && user.password === password);
         if(loginUser){
-            setCurrentUser(loginUser.userName);
-            localStorage.setItem("currentUser", JSON.stringify(loginUser.userName));
+            setCurrentUser(loginUser.username);
+            localStorage.setItem("currentUser", JSON.stringify(loginUser.username))
             setId("");
             setPassword("");
-            navigator('/BookList');
+            navigator('/booklist');
         }
         else{
-            alert('아이디 또는 비밀번호가 일치하지 않습니다')
+            alert('아이디 또는 비밀번호가 일치하지 않습니다');
         }
     }
 
@@ -36,7 +36,6 @@ const Login = () => {
 
                 <button>로그인</button>
             </form>
-
             
         </div>
     );

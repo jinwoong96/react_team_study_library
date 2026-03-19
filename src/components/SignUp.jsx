@@ -5,10 +5,10 @@ const SignUp = () => {
 
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
-    const [userName, setUserName] = useState('');
+    const [username, setUsername] = useState('');
 
     const [isIdDuplicate, setIsIdDuplicate] = useState(false);
-    const [isUserNameDuplicate, setIsUserNameDuplicate]= useState(false);
+    const [isUsernameDuplicate, setIsUsernameDuplicate]= useState(false);
 
     const navigator=useNavigate();
 
@@ -21,12 +21,12 @@ const SignUp = () => {
     },[id]);
 
     useEffect(()=> {
-        if (!userName) return;
+        if (!username) return;
         const users = JSON.parse(localStorage.getItem("users")) || [];
-        const isDuplicate = users.some(user => user.userName === userName)
+        const isDuplicate = users.some(user => user.username === username)
 
-        setIsUserNameDuplicate(isDuplicate);
-    },[userName]);
+        setIsUsernameDuplicate(isDuplicate);
+    },[username]);
 
     const onSubmit1=(e)=>{
         e.preventDefault();
@@ -36,12 +36,18 @@ const SignUp = () => {
             return;
         }
 
-        if (isUserNameDuplicate) {
+        if (isUsernameDuplicate) {
             alert('닉네임 중복');
             return;
         }
 
-        const user ={id, password, userName};
+        if(!id.trim() || !username.trim() || !password.trim()){
+            alert('모든 항목을 입력하세요');
+            return;
+        }
+
+
+        const user ={id, password, username};
 
         let users=JSON.parse(localStorage.getItem("users")) || [];
         users.push(user);
@@ -50,7 +56,7 @@ const SignUp = () => {
 
         setId("");
         setPassword("");
-        setUserName("");
+        setUsername("");
 
         navigator('/login');
     }
@@ -61,11 +67,11 @@ const SignUp = () => {
                 <h1>회원가입</h1>
                 아이디:<input type='text' value={id} onChange={(e)=>setId(e.target.value)} /> {isIdDuplicate && <p> 이미 사용 중인 아이디입니다</p>}
                 <br></br>
-                닉네임:<input type='text' value={userName} onChange={(e)=>setUserName(e.target.value)} /> {isUserNameDuplicate && <p> 이미 사용 중인 닉네임입니다</p>}
+                닉네임:<input type='text' value={username} onChange={(e)=>setUsername(e.target.value)} /> {isUsernameDuplicate && <p> 이미 사용 중인 닉네임입니다</p>}
                 <br></br>
                 비밀번호:<input type='password' value={password} onChange={(e)=>setPassword(e.target.value)}></input>
                 <br></br>
-                <button disabled={!id.trim() || !userName.trim() || !password.trim() || id.includes(" ") || password.includes(" ")}>회원가입</button>
+                <button disabled={ id.includes(" ") || password.includes(" ") || username.includes(" ")}>회원가입</button>
             </form>
             
         </div>
