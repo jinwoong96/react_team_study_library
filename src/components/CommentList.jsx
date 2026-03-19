@@ -16,15 +16,16 @@ const CommentList = () => {
         let storedBooks = JSON.parse(localStorage.getItem("books"));
         if(like){
             // 좋아요 취소하면 로컬에서 삭제
-            setLikes(()=>likes.filter((name)=>name!==currentUser.username));
-            storedBooks = storedBooks.map((book)=>book.id===bookId?{...book,likes:likes}:book);
+            const newLikes = likes.filter((name)=>name!==currentUser.username);
+            storedBooks = storedBooks.map((book)=>book.id===bookId?{...book,likes:newLikes}:book);
             localStorage.setItem("books", JSON.stringify(storedBooks));
+            setLikes(()=>newLikes);
         }else{
             // 좋아요 하면 로컬에 추가
-            let newLikes = [...likes, currentUser.username];
-            storedBooks.likes = newLikes;
-            setLikes(newLikes);
+            const newLikes = [...likes, currentUser.username];
+            storedBooks = storedBooks.map((book)=>book.id===bookId?{...book,likes:newLikes}:book);
             localStorage.setItem("books", JSON.stringify(storedBooks));
+            setLikes(()=>newLikes);
         }
         setLike(()=>!like);
     }
