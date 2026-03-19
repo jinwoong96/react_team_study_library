@@ -16,19 +16,38 @@ const AdminPage = () => {
         return null;
     }
     
-    return (
-        <div>
-            <p>회원 목록</p>
+   return (
+        <div style={{ 
+            backgroundColor: '#b6f0a0',
+            minHeight: '100vh', 
+            padding: '40px 20px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+        }}>
+            <h2 style={{ marginBottom: '30px', color: '#191a19' }}>관리자 페이지</h2>
 
-            {localUsers.length > 0 ?(
-                localUsers.map((user)=>(
-                    <p key={user.id}>
-                        {user.id} / {user.username}
-                    </p>
-                 ))
-             ) : (
-                <p>등록된 회원이 없습니다</p>
-             )}
+            <div style={{ width: '100%', maxWidth: '500px' }}>
+                {localUsers.length > 0 ? (
+                    localUsers.map((user) => (
+                        <div key={user.id} style={{
+                            backgroundColor: 'white',
+                            padding: '15px 25px',
+                            borderRadius: '15px',
+                            marginBottom: '12px',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            boxShadow: '0 2px 5px rgba(0,0,0,0.05)',
+                            border: '1px solid #eee'
+                        }}>
+                            <span style={{ color: '#1b1818', fontSize: '14px' }}>ID: {user.id}</span>
+                            <span style={{ fontWeight: 'bold', color: '#1b1818' }}>{user.username}</span>
+                        </div>
+                    ))
+                ) : (
+                    <p style={{ textAlign: 'center', color: '#080808' }}>등록된 회원이 없습니다</p>
+                )}
+            </div>
         </div>
     );
 };
