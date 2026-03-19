@@ -7,10 +7,6 @@ const CommentList = () => {
     const {id} = useParams();
     const bookId = parseInt(id);
     
-    // 테스트용 코드
-    // const {bookId=id} = useParams();
-    // const bookId = 1773741190497;
-    
     const [comments, setComments] = useState([]);
     const [likes, setLikes] = useState([]);
     const [currentUser, setCurrentUser] = useState(null);
@@ -71,7 +67,8 @@ const CommentList = () => {
     return (
         <div className="max-w-2xl mx-auto p-4">
             {currentUser?<>
-            <button onClick={toggleLike} className='text-sm'><span>{like?<i className="bi bi-heart-fill"></i>:<i className="bi bi-heart"></i>}</span> 좋아요 <span className='font-semibold'>{likes.length}</span></button><button className='ml-5 text-sm'>댓글 <span className='font-semibold'>{comments.length}</span></button>
+            <button onClick={toggleLike} className='text-sm'><span>{like?<i className="bi bi-heart-fill"></i>:<i className="bi bi-heart"></i>}</span> 좋아요 <span className='font-semibold'>{likes.length}</span></button>
+            <button onClick={(e)=>{document.querySelector('#comment-input-area').focus()}} className='ml-5 text-sm'>댓글 <span className='font-semibold'>{comments.length}</span></button>
             <hr/>
             <div className="space-y-2">
                 {comments.map((comment)=>(<div key={comment.id}>

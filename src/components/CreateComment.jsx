@@ -18,16 +18,17 @@ const CreateComment = ({currentUser, addComment}) => {
             bookId: bookId,
             username: currentUser.username,
             content:commentInput,
-            createdDate:getCurrentTimeString(),
+            createdTime:getCurrentTimeString(),
         }
         addComment(newComment);
+        setCommentInput('');
     }
 
     return (
         <div className="gap-3 mb-6 mt-6">
             <div className="mb-1 ml-2 font-semibold text-sm">{currentUser.username}</div>
             <div  className="flex-1 w-full">
-                <textarea value={commentInput} placeholder='댓글을 남겨보세요' onChange={(e)=>setCommentInput(e.target.value)} className="w-full border rounded-lg p-3 resize-none focus:outline-none focus:ring focus:ring-blue-400" rows={3}/>
+                <textarea id='comment-input-area' value={commentInput} placeholder='댓글을 남겨보세요' onChange={(e)=>setCommentInput(e.target.value)} className="w-full border rounded-lg p-3 resize-none focus:outline-none focus:ring focus:ring-blue-400" rows={3}/>
             </div>
             <div className="flex justify-end mt-2">
                 <button onClick={addComment1} className="bg-blue-500 text-white px-4 py-1.5 rounded-lg hover:bg-blue-600">등록</button>
