@@ -7,12 +7,6 @@ const Navibar = () => {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!currentUser) {
-      navigate("/login");
-    }
-  }, [currentUser]);
-
   const handleHomeClick = (e) => {
     e.preventDefault();
     navigate("/");

@@ -4,8 +4,12 @@ const AuthContext=createContext();
 
 const AuthContextPro = ({children}) => {
     
+    const [users, setUsers] = useState(
+        JSON.parse(localStorage.getItem("users")) || []
+    );
+    
     const [currentUser, setCurrentUser]=useState(
-        JSON.parse(localStorage.getItem("currentUser")) || null,
+        JSON.parse(localStorage.getItem("currentUser")) || null
     );
 
     useEffect(()=> {
@@ -20,7 +24,7 @@ const AuthContextPro = ({children}) => {
     }
 
     return (
-        <AuthContext.Provider value={{ currentUser, setCurrentUser, logout}}>
+        <AuthContext.Provider value={{ currentUser, setCurrentUser, logout, users, setUsers}}>
             {children}
         </AuthContext.Provider>
             
