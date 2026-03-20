@@ -70,7 +70,7 @@ const CommentList = () => {
             <>
             <button onClick={toggleLike} className='text-sm'><span>{like?<i className="bi bi-heart-fill"></i>:<i className="bi bi-heart"></i>}</span> 좋아요 <span className='font-semibold'>{likes.length}</span></button>
             <button onClick={(e)=>{document.querySelector('#comment-input-area').focus()}} className='ml-5 text-sm'>댓글 <span className='font-semibold'>{comments.length}</span></button>
-            <hr/>
+            <hr className="border-0 h-px bg-gray-300"/>
             <div className="space-y-2">
                 {comments.map((comment)=>(<div key={comment.id}>
                     {/* 유저 닉네임, 삭제버튼 */}
@@ -87,7 +87,7 @@ const CommentList = () => {
                     <div className="flex gap-4 text-sm text-gray-500 mt-1">
                         {comment.createdTime}
                     </div>
-                    <hr/>
+                    <hr className="border-0 h-px bg-gray-300"/>
                     </div>))}
             </div>
                 <CreateComment addComment={addComment}/>
