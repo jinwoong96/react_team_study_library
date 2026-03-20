@@ -39,12 +39,11 @@ const BookInfo = () => {
 
     if (!book) return <div className="p-10 text-center">로딩 중...</div>;
 
-    // <로그인 시는 임시 주석>
     const isAuthor = currentUser && String(currentUser.id) === String(book.userid);
 
     return (
         <div className="max-w-4xl mx-auto p-6">
-            <div className="flex flex-col md:flex-row gap-8 mb-10 border-b pb-10">
+            <div className="flex flex-col md:flex-row gap-8 mb-10 border-b-2 border-gray-400 pb-10">
                 <div className="md:w-1/3 flex justify-center">
                     <img 
                         src={book.image} 
@@ -64,7 +63,6 @@ const BookInfo = () => {
                     </div>
 
                     <div className="flex gap-2 mt-6 justify-end">
-                           {/* <로그인 시는 임시 주석> */}
                         {isAuthor && (
                             <>
                                 <button 

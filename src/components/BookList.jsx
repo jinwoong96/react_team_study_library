@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const BookList = () => {
-    const [books,setBooks]=useState('');
+    const [books,setBooks]=useState([]);
     const [currentUser,setCurrentUser]=useState(null);
     const [search,setSearch]=useState('')
+
+    const navigator = useNavigate();
+
     useEffect(()=>{
         const storedBooks=JSON.parse(localStorage.getItem('books'))||[];
         setBooks(storedBooks);
-        const storedUser=JSON.parse(localStorage.getItem('currentUser'))||[];
+        const storedUser=JSON.parse(localStorage.getItem('currentUser'))||null;
         setCurrentUser(storedUser);
     },[]);
 
@@ -20,29 +23,41 @@ const BookList = () => {
         const findUsers = storedBooks.filter((book)=>book.username.includes(search));
         const find=[...new Set([...findBooks, ...findAuthors, ...findUsers])];
         setBooks(find);
-        setSearch('');
+    }
+
+    const addBook = () => {
+        if(currentUser){
+            navigator('/create');
+        }else{
+            alert("로그인 후에 책 추가가 가능합니다");
+            navigator("/login");
+        }
     }
 
     return (
         <div>
-            <form className='bg-green-200 shadow-md flex justify-end gap-3 py-2' onSubmit={onSearch}>
-                <input value={search} onKeyDown={(e)=>e.key==='Enter'&&onSearch} onChange={(e)=>setSearch(e.target.value)} className='border border-gray-500 rounded py-1 px-3'></input>
-                <button type='submit' className='bg-black text-white px-3 py-1 rounded'>검색</button>
-                <div className='bg-gray-300 flex px-3 py-1 rounded ml-10 mr-10 border border-gray-400'>
-                    <Link to={`/create`}>책 추가</Link>
+            <form onSubmit={onSearch} className='relative'>
+                <div className='flex justify-center gap-3 py-12'>
+                    <input value={search} onKeyDown={(e)=>e.key==='Enter'&&onSearch} onChange={(e)=>setSearch(e.target.value)} className='placeholder:text-lg border-8 border-cyan-500 w-1/2 h-16 rounded-2xl py-1 px-3' placeholder='제목 / 저자 / 작성자'></input>
+                    <button type='submit' className='bg-cyan-800 text-white text-xl font-semibold w-24 h-16 flex items-center justify-center px-3 rounded-2xl'>검색</button>
+                    <div className='absolute right-0 top-1/2 -translate-y-1/2 h-14 flex items-center justify-center bg-cyan-600 text-center w-28 rounded-2xl ml-10 mr-10 border border-gray-400 text-xl'>
+                        <button onClick={()=>addBook()} className='text-white font-semibold'>책 추가</button>
+                    </div>
                 </div>
             </form><br />
-            <div className='flex flex-wrap gap-5 ml-10'>
+            <div className='flex flex-wrap gap-28 ml-10'>
                 {books.length > 0 ? (
                     books.map((book)=>(
-                        <div key={book.id} className='border border-gray-300 px-10 py-10 rounded justify-center text-center'>
+                        <div key={book.id} className='bg-slate-100 border border-gray-300 px-10 py-10 rounded justify-center text-center text-xl'>
                             <Link to={`/${book.id}`}>
-                                <img src={book.image}
-                                width={120}
-                                height={180}></img><br />
+                                <div className='bg-white w-[160px] h-[240px] mx-auto mb-3 border border-gray-300 items-center justify-center flex'>
+                                    <img src={book.image}
+                                    width={160}
+                                    height={240}></img><br />
+                                </div>
                                 {book.title}<br />
                             </Link>
-                            <div className='text-sm text-gray-400'>
+                            <div className='text-lg text-gray-400'>
                                 {book.author} 저 <br />
                             </div>
                         </div>
