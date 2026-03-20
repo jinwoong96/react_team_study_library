@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: sans-serif;
-  background-color: beige;
+  background-color: #e2e8f0;
 }
 
 /* 링크 스타일 제거 */
@@ -20,4 +20,22 @@ button {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+}
+
+.wood-light {
+  background-color: #e8c59b; /* 기본 나무색 */
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 0px,
+    rgba(255, 255, 255, 0.05) 1px,
+    transparent 1px,
+    transparent 60px
+  ),
+  repeating-linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.05) 0px,
+    rgba(0, 0, 0, 0.05) 1px,
+    transparent 1px,
+    transparent 30px
+  );
 }

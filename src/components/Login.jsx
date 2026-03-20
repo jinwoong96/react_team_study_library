@@ -27,7 +27,7 @@ const Login = () => {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-[#f5f5dc]">
+        <div className="min-h-screen flex items-center justify-center">
             <form onSubmit={onSubmit2} className="bg-white p-8 rounded-2xl shadow-lg border border-[#D7EFE5]">
                 <h1 className="text-2xl font-bold text-center mb-6 text-[#4E9F84]">로그인</h1>
                 아이디:<input type='text' value={id} onChange={(e)=>setId(e.target.value)}
