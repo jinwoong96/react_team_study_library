@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContextPro";
-import AdminPage from "./AdminPage";
 
 const Navibar = () => {
   const { currentUser, logout } = useAuth();
@@ -12,6 +11,14 @@ const Navibar = () => {
     navigate("/");
     window.location.reload();
   };
+
+  const handleLogout = () => {
+    logout();
+    alert("로그아웃 되었습니다.");
+    navigate("/");
+  }
+
+
   return (
     <nav className="bg-slate-900 border-b border-slate-800 shadow-lg h-20 w-full flex items-center px-6 md:px-10 z-50 sticky top-0">
       
@@ -24,10 +31,16 @@ const Navibar = () => {
         >
           홈
         </Link>
-        {/* AdminPage 컴포넌트 내부 텍스트가 있을 경우 어울리도록 감싸줌 */}
-        <div className="text-amber-400 font-bold text-sm hover:text-amber-300 transition-colors">
-          <AdminPage />
-        </div>
+
+      {/* { 회원관리페이지 넣어놨습니다 } */}
+        {currentUser && currentUser.username === 'admin' && (
+          <Link 
+            to="/AdminPage" 
+            className="text-amber-400 font-bold text-sm hover:text-amber-300 transition-colors border border-amber-400/30 px-3 py-1 rounded-lg"
+          >
+            회원 관리
+          </Link>
+        )}
       </div>
 
       {/* 2. 가운데: 사이트 이름 (요청하신 '한줄기록') */}
@@ -45,7 +58,7 @@ const Navibar = () => {
               <span className="text-white font-bold text-base">{currentUser.username}</span>님
             </span>
             <button 
-              onClick={logout}
+              onClick={handleLogout}
               className="px-5 py-2 rounded-full border border-slate-700 bg-slate-800 text-slate-300 font-medium text-sm hover:bg-slate-700 hover:text-white hover:border-slate-500 transition-all"
             >
               로그아웃

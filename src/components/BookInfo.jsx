@@ -43,7 +43,7 @@ const BookInfo = () => {
 
     return (
         <div className="max-w-4xl mx-auto p-6">
-            <div className="flex flex-col md:flex-row gap-8 mb-10 border-b pb-10">
+            <div className="flex flex-col md:flex-row gap-8 mb-10 border-b-2 border-gray-400 pb-10">
                 <div className="md:w-1/3 flex justify-center">
                     <img 
                         src={book.image} 
