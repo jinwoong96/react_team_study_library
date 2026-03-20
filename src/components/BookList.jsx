@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const BookList = () => {
-    const [books,setBooks]=useState('');
+    const [books,setBooks]=useState([]);
     const [currentUser,setCurrentUser]=useState(null);
     const [search,setSearch]=useState('')
 
