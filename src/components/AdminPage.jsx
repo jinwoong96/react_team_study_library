@@ -25,9 +25,11 @@ const AdminPage = () => {
             flexDirection: 'column',
             alignItems: 'center'
         }}>
-            <h2 style={{ marginBottom: '30px', color: '#191a19' }}>관리자 페이지</h2>
+            <h1 style={{ marginBottom: '30px', color: '#191a19' }}>관리자 페이지</h1>
 
             <div style={{ width: '100%', maxWidth: '500px' }}>
+                <h2 style={{ color: '#1b1818', marginBottom: '30px' }}>등록된 회원 목록</h2>
+                
                 {localUsers.length > 0 ? (
                     localUsers.map((user) => (
                         <div key={user.id} style={{
