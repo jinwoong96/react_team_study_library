@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getCurrentTimeString } from '../jss/util';
 import CreateComment from './CreateComment';
+import { useAuth } from './AuthContextPro';
 
 const CommentList = () => {
     const {id} = useParams();
@@ -9,7 +9,7 @@ const CommentList = () => {
     
     const [comments, setComments] = useState([]);
     const [likes, setLikes] = useState([]);
-    const [currentUser, setCurrentUser] = useState(null);
+    const {currentUser, setCurrentUser} = useAuth();
     const [like, setLike] = useState(false);
 
     const toggleLike = () => {
@@ -67,7 +67,7 @@ const CommentList = () => {
 
     return (
         <div className="max-w-2xl mx-auto p-4">
-            {currentUser?<>
+            <>
             <button onClick={toggleLike} className='text-sm'><span>{like?<i className="bi bi-heart-fill"></i>:<i className="bi bi-heart"></i>}</span> 좋아요 <span className='font-semibold'>{likes.length}</span></button>
             <button onClick={(e)=>{document.querySelector('#comment-input-area').focus()}} className='ml-5 text-sm'>댓글 <span className='font-semibold'>{comments.length}</span></button>
             <hr/>
@@ -76,8 +76,8 @@ const CommentList = () => {
                     {/* 유저 닉네임, 삭제버튼 */}
                     <div className="flex justify-between">
                         <div className="font-semibold text-sm">{comment.username}</div>
-                        <div>{currentUser.username === comment.username?
-                            <button onClick={()=>deleteComment(comment.id)} className='text-sm text-gray-500 hover:text-blue-500'>삭제</button>:<></>}</div>
+                        <div>{currentUser && currentUser.username === comment.username &&
+                            <button onClick={()=>deleteComment(comment.id)} className='text-sm text-gray-500 hover:text-blue-500'>삭제</button>}</div>
                     </div>
                     {/* 댓글 내용 */}
                     <div className="text-sm text-gray-700 mt-1">
@@ -90,10 +90,8 @@ const CommentList = () => {
                     <hr/>
                     </div>))}
             </div>
-                <CreateComment currentUser={currentUser} addComment={addComment}/>
+                <CreateComment addComment={addComment}/>
                 </>
-                :<div></div>
-                }
         </div>
     );
 };
