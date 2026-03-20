@@ -5,10 +5,13 @@ const BookList = () => {
     const [books,setBooks]=useState('');
     const [currentUser,setCurrentUser]=useState(null);
     const [search,setSearch]=useState('')
+
+    const navigator = useNavigate();
+
     useEffect(()=>{
         const storedBooks=JSON.parse(localStorage.getItem('books'))||[];
         setBooks(storedBooks);
-        const storedUser=JSON.parse(localStorage.getItem('currentUser'))||[];
+        const storedUser=JSON.parse(localStorage.getItem('currentUser'))||null;
         setCurrentUser(storedUser);
     },[]);
 
@@ -20,7 +23,15 @@ const BookList = () => {
         const findUsers = storedBooks.filter((book)=>book.username.includes(search));
         const find=[...new Set([...findBooks, ...findAuthors, ...findUsers])];
         setBooks(find);
-        setSearch('');
+    }
+
+    const addBook = () => {
+        if(currentUser){
+            navigator('/create');
+        }else{
+            alert("로그인 후에 책 추가가 가능합니다");
+            navigator("/login");
+        }
     }
 
     return (
@@ -30,7 +41,7 @@ const BookList = () => {
                     <input value={search} onKeyDown={(e)=>e.key==='Enter'&&onSearch} onChange={(e)=>setSearch(e.target.value)} className='placeholder:text-lg border-8 border-cyan-500 w-1/2 h-16 rounded-2xl py-1 px-3' placeholder='제목 / 저자 / 작성자'></input>
                     <button type='submit' className='bg-cyan-800 text-white text-xl font-semibold w-24 h-16 flex items-center justify-center px-3 rounded-2xl'>검색</button>
                     <div className='absolute right-0 top-1/2 -translate-y-1/2 h-14 flex items-center justify-center bg-green-500 text-center w-28 rounded-2xl ml-10 mr-10 border border-gray-400 text-xl'>
-                        <Link to={`/create`} className='text-white font-semibold'>책 추가</Link>
+                        <button onClick={()=>addBook()} className='text-white font-semibold'>책 추가</button>
                     </div>
                 </div>
             </form><br />

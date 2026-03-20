@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthContextPro";
 
 const CreateBook = () => {
   const [title, setTitle] = useState("");
@@ -11,14 +12,15 @@ const CreateBook = () => {
   const fileInputRef = useRef(null);
 
   const navigator = useNavigate();
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const {currentUser} = useAuth();
+  // const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   useEffect(() => {
     if (!currentUser) {
       alert("로그인 후에 책 추가가 가능합니다");
       navigator("/login");
     }
-  }, []);
+  }, [currentUser]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
