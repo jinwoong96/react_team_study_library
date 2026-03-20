@@ -62,7 +62,7 @@ const SignUp = () => {
     }
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-[#f5f5dc]">
+        <div className="min-h-screen flex items-center justify-center">
             <form onSubmit={onSubmit1} className="bg-white p-8 rounded-2xl shadow-lg border border-[#D7EFE5]">
                 <h1 className="text-2xl font-bold text-center mb-6 text-[#4E9F84]">회원가입</h1>
                 
