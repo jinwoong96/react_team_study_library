@@ -39,7 +39,6 @@ const BookInfo = () => {
 
     if (!book) return <div className="p-10 text-center">로딩 중...</div>;
 
-    // <로그인 시는 임시 주석>
     const isAuthor = currentUser && String(currentUser.id) === String(book.userid);
 
     return (
@@ -64,7 +63,6 @@ const BookInfo = () => {
                     </div>
 
                     <div className="flex gap-2 mt-6 justify-end">
-                           {/* <로그인 시는 임시 주석> */}
                         {isAuthor && (
                             <>
                                 <button 
